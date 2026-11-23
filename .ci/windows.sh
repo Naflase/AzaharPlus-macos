@@ -12,6 +12,14 @@ fi
 # The MSYS2 toolchain is also missing the <vector> include in dynarmic.
 if [ "$TARGET" = "msys2" ]; then
     EXTRA_CMAKE_FLAGS+=("-DCMAKE_CXX_FLAGS=-include vector")
+    # Newer MSYS2 ships an endian.h without htobe32/htobe64, which makes LibreSSL skip its own
+    # compat header. Force the compat one, as with older toolchains.
+    EXTRA_CMAKE_FLAGS+=("-DHAVE_ENDIAN_H=0")
+fi
+
+# zlib for libzip, installed with vcpkg in the workflow.
+if [ "$TARGET" = "msvc" ]; then
+    EXTRA_CMAKE_FLAGS+=("-DZLIB_ROOT=C:/vcpkg/installed/x64-windows-static-md")
 fi
 
 cmake .. -G Ninja \

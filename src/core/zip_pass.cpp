@@ -46,7 +46,7 @@ int exportZipPass(std::string path)
 			const auto callback2 = [za, virtual_name](u64* num_entries_out, const std::string& directory,
 												  const std::string& v_name) -> bool {
 				std::string real_name = directory + DIR_SEP + v_name;
-#ifdef ANDROID
+#if defined(ANDROID) && !defined(HAVE_LIBRETRO_VFS)
 				real_name = AndroidUtils::TranslateFilePath(real_name);
 #endif
 				if (v_name[0] == '_' && v_name.length() == 12) {
@@ -416,7 +416,7 @@ int importQueuedZipPass()
 		{
 			std::string zip_path = file;
 			
-#ifdef ANDROID
+#if defined(ANDROID) && !defined(HAVE_LIBRETRO_VFS)
 			zip_path = AndroidUtils::TranslateFilePath(file);
 #endif
 
