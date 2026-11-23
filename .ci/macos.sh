@@ -7,7 +7,7 @@ fi
 # FFmpeg 7.x is required; Homebrew's default ffmpeg formula is newer.
 export PKG_CONFIG_PATH="$(brew --prefix ffmpeg@7)/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
 
-mkdir build
+mkdir -p build
 cd build
 cmake .. -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
