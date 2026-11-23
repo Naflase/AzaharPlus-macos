@@ -323,7 +323,7 @@ if (NOT WIN32)
         find_package(Qt6 REQUIRED COMPONENTS GuiPrivate)
         target_link_libraries(citra_qt PUBLIC Qt6::GuiPrivate)
     else()
-        target_include_directories(citra_qt PRIVATE ${Qt6Gui_PRIVATE_INCLUDE_DIRS})
+        target_include_directories(citra_qt PUBLIC ${Qt6Gui_PRIVATE_INCLUDE_DIRS})
     endif()
 endif()
 
