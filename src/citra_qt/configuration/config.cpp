@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <array>
 #include <QKeySequence>
+#include <QRandomGenerator>
 #include <QSettings>
 #include <QVariant>
 #include <QVector>
@@ -925,6 +926,16 @@ void QtConfig::ReadWebServiceValues() {
 
     ReadBasicSetting(Settings::values.web_api_url);
     ReadBasicSetting(Settings::values.network_token);
+
+    // Generate a random token if none is set, so that public rooms can be hosted on the default
+    // lobby server without any manual setup. It is saved along with the other values on Reload().
+    if (Settings::values.network_token.GetValue().empty()) {
+        std::string token;
+        for (int i = 0; i < 4; ++i) {
+            token += fmt::format("{:08x}", QRandomGenerator::system()->generate());
+        }
+        Settings::values.network_token = token;
+    }
 
     qt_config->endGroup();
 }
