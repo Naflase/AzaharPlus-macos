@@ -80,7 +80,18 @@ if (BUNDLE_TARGET_EXECUTE)
             file(REMOVE "${executable_parent_dir}/plugins/multimedia/ffmpegmediaplugin.dll")
         elseif (APPLE)
             get_filename_component(executable_name "${executable_path}" NAME_WE)
-            find_program(macdeployqt_executable macdeployqt6 PATHS "${QT_HOST_PATH}/bin")
+            # Prefer the macdeployqt shipped with the Qt we built against, so that a different Qt
+            # found in PATH (e.g. Homebrew) does not get mixed into the bundle.
+            if (QT_HOST_PATH)
+                find_program(macdeployqt_executable macdeployqt6 PATHS "${QT_HOST_PATH}/bin" NO_DEFAULT_PATH)
+            endif()
+            if (NOT macdeployqt_executable)
+                find_program(macdeployqt_fallback_executable macdeployqt6)
+                set(macdeployqt_executable "${macdeployqt_fallback_executable}")
+            endif()
+            if (NOT macdeployqt_executable)
+                message(FATAL_ERROR "macdeployqt6 not found")
+            endif()
 
             message(STATUS "Executing macdeployqt at \"${macdeployqt_executable}\" for executable \"${executable_path}\"")
             execute_process(
