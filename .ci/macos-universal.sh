@@ -26,7 +26,22 @@ for OTHER_ARTIFACT in "${ARTIFACTS_LIST[@]:1}"; do
         lipo -create -output $BUNDLE_DIR/$BIN_PATH $BUNDLE_DIR/$BIN_PATH $OTHER_ARTIFACT/$BIN_PATH
     done
 
+    # The bundled dependencies (see macos-fix-bundle.sh) can differ between architectures.
+    # Libraries that only exist in the other artifact are copied over as they are.
+    IFS=$'\n'
+    OTHER_DYLIB_PATHS=($(cd $OTHER_ARTIFACT && find . -name '*.dylib'))
+    unset IFS
+    for DYLIB_PATH in "${OTHER_DYLIB_PATHS[@]}"; do
+        if [ ! -e "$BUNDLE_DIR/$DYLIB_PATH" ]; then
+            cp -a "$OTHER_ARTIFACT/$DYLIB_PATH" "$BUNDLE_DIR/$DYLIB_PATH"
+        fi
+    done
+
     for DYLIB_PATH in "${DYLIB_PATHS[@]}"; do
+        # Libraries that only exist in the base artifact are kept as they are.
+        if [ ! -e "$OTHER_ARTIFACT/$DYLIB_PATH" ]; then
+            continue
+        fi
         # Only merge if the libraries do not have conflicting arches, otherwise it will fail.
         DYLIB_INFO=`file $BUNDLE_DIR/$DYLIB_PATH`
         OTHER_DYLIB_INFO=`file $OTHER_ARTIFACT/$DYLIB_PATH`

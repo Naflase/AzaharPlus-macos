@@ -76,8 +76,8 @@ enum class AndroidOpenMode {
 
 class AndroidBuildFlavors {
 public:
-    static constexpr std::string GOOGLEPLAY = "googlePlay";
-    static constexpr std::string VANILLA = "vanilla";
+    static inline const std::string GOOGLEPLAY = "googlePlay";
+    static inline const std::string VANILLA = "vanilla";
 };
 
 inline AndroidOpenMode operator|(AndroidOpenMode a, int b) {
