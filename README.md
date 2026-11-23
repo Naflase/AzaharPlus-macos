@@ -44,6 +44,27 @@ To use AzaharPlus with Batocera you can install the Batocera Unofficial Add-ons
 
  https://github.com/batocera-unofficial-addons/batocera-unofficial-addons
 
+### macOS (Apple Silicon)
+
+1. Download `AzaharPlus-macos-arm64-<version>.zip` from the [Releases](https://github.com/Naflase/AzaharPlus-macos/releases) of this repository and unzip it.
+2. Move `AzaharPlus.app` to `/Applications`.
+3. The app is ad hoc signed and not notarized, so remove the quarantine flag:
+   ```
+   xattr -dr com.apple.quarantine /Applications/AzaharPlus.app
+   ```
+4. On first launch, right-click the app and choose **Open**.
+
+The minimum macOS version of each build is given in its release notes.
+
+Public multiplayer works out of the box: the default lobby server is `http://88.198.47.46:5000`, and a random network token is generated on first launch so that public rooms can be hosted without any setup.
+
+To build it yourself (Homebrew's Qt must not be in your `PATH`, the build downloads its own Qt):
+```
+brew install ccache ninja spirv-tools ffmpeg@7 sdl3
+TARGET=arm64 ./.ci/macos.sh
+```
+The app is created in `build/bundle/Azahar.app`. `.ci/macos-fix-bundle.sh` (run by `.ci/macos.sh`) bundles FFmpeg 7 and its dependencies into the app.
+
 # ZipPass
 
 ZipPass allows you to share StreetPass data in the form of zip files.<br>
