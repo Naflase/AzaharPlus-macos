@@ -1,0 +1,75 @@
+name: macos-release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to upload the build to (e.g. macos-2126.2-A). Leave empty to only build an artifact."
+        required: false
+        default: ""
+  push:
+    tags: [ "macos-*" ]
+
+permissions:
+  contents: write
+
+jobs:
+  macos-arm64:
+    runs-on: macos-26
+    env:
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+      CCACHE_COMPILERCHECK: content
+      CCACHE_SLOPPINESS: time_macros
+      TARGET: arm64
+      RELEASE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Set up cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ${{ runner.os }}-arm64-macos-release-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-arm64-macos-release-
+      - name: Install tools
+        run: |
+          brew install ccache ninja spirv-tools ffmpeg@7 sdl3
+          # Homebrew's Qt must not be mixed with the Qt downloaded by CMake.
+          brew uninstall --ignore-dependencies qt qt@6 || true
+      - name: Build
+        run: ./.ci/macos.sh
+      - name: Pack
+        run: |
+          NAME_SUFFIX="${RELEASE_TAG:-$(git rev-parse --short HEAD)}"
+          ZIP_NAME="AzaharPlus-macos-arm64-${NAME_SUFFIX}.zip"
+          mkdir -p artifacts
+          mv build/bundle/Azahar.app build/bundle/AzaharPlus.app
+          ditto -c -k --sequesterRsrc --keepParent build/bundle/AzaharPlus.app "artifacts/${ZIP_NAME}"
+          shasum -a 256 "artifacts/${ZIP_NAME}"
+          echo "ZIP_NAME=${ZIP_NAME}" >> "$GITHUB_ENV"
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ZIP_NAME }}
+          path: artifacts/${{ env.ZIP_NAME }}
+      - name: Publish to release
+        if: env.RELEASE_TAG != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Never replace an asset that is already published (e.g. a build that was
+          # uploaded and validated manually); the CI build stays available as an artifact.
+          if gh release view "$RELEASE_TAG" > /dev/null 2>&1; then
+            if gh release view "$RELEASE_TAG" --json assets -q '.assets[].name' | grep -qxF "$ZIP_NAME"; then
+              echo "$ZIP_NAME is already attached to release $RELEASE_TAG, not replacing it."
+            else
+              gh release upload "$RELEASE_TAG" "artifacts/$ZIP_NAME"
+            fi
+          else
+            gh release create "$RELEASE_TAG" "artifacts/$ZIP_NAME" \
+              --target "$GITHUB_SHA" \
+              --title "AzaharPlus ${RELEASE_TAG#macos-} for macOS (Apple Silicon)" \
+              --notes "Automated macOS (Apple Silicon) build of ${GITHUB_SHA}. The app is ad hoc signed and not notarized: after moving it to /Applications, run \`xattr -dr com.apple.quarantine /Applications/AzaharPlus.app\`."
+          fi
