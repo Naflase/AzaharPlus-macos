@@ -451,7 +451,7 @@ void RoomMember::RoomMemberImpl::HandleAzaharPlusPecificPacket(const ENetEvent* 
 			
 			std::string zip_path = path;
 			
-#ifdef ANDROID
+#if defined(ANDROID) && !defined(HAVE_LIBRETRO_VFS)
 			zip_path = AndroidUtils::TranslateFilePath(path);
 #endif
 
@@ -536,7 +536,7 @@ void RoomMember::RoomMemberImpl::HandleAzaharPlusPecificPacket(const ENetEvent* 
 					if(dir == "history") {
 						std::string zip_path = path;
 						
-#ifdef ANDROID
+#if defined(ANDROID) && !defined(HAVE_LIBRETRO_VFS)
 						zip_path = AndroidUtils::TranslateFilePath(path);
 #endif
 						Core::importZipPass(zip_path);
