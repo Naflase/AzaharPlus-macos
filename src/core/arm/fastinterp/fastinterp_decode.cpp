@@ -3396,7 +3396,7 @@ static bool TryDecodeThumb32PlainBinaryImm(u16 hw1, u16 hw2, DecodedInst& out) {
     if ((hw1 & 0xFA00) != 0xF200) {
         return false;
     }
-    const u8 op_raw = (hw1 >> 5) & 0xF;
+    [[maybe_unused]] const u8 op_raw = (hw1 >> 5) & 0xF;
     const u8 Rn = hw1 & 0xF;
     const u8 Rd = (hw2 >> 8) & 0xF;
     const bool i = (hw1 >> 10) & 1;
@@ -3763,8 +3763,8 @@ void ARM_FastInterp::DecodeThumb32(u32 inst, u32 pc, DecodedInst& out) {
     // then fix up inst_size. This reuses all existing ARM handlers.
 
     const u8 op1_5 = (hw1 >> 11) & 0x1F; // bits [15:11] of hw1
-    const u8 op1_hi = (hw1 >> 9) & 0x3;  // bits [10:9] of hw1
-    const u8 op2_7 = (hw1 >> 4) & 0x7F;  // bits [10:4] of hw1
+    [[maybe_unused]] const u8 op1_hi = (hw1 >> 9) & 0x3;  // bits [10:9] of hw1
+    [[maybe_unused]] const u8 op2_7 = (hw1 >> 4) & 0x7F;  // bits [10:4] of hw1
 
     // ---- 1110 100x: Load/Store Multiple, Load/Store Dual ----
     // hw1 bits[10:9] select the sub-space (00 = multiple/dual/exclusive,
@@ -3772,8 +3772,8 @@ void ARM_FastInterp::DecodeThumb32(u32 inst, u32 pc, DecodedInst& out) {
     // dual encodings and must not be used for routing.
     if (op1_5 == 0x1D && (hw1 & 0x0600) == 0x0000) {
         // 1110 100x xxxx: LDM.W, STM.W, LDMDB, STMDB, LDRD, STRD, etc.
-        const u8 op = (hw1 >> 7) & 0x3; // bits [8:7]
-        const bool L = (hw1 >> 4) & 1;  // bit 4 (load vs store for dual)
+        [[maybe_unused]] const u8 op = (hw1 >> 7) & 0x3; // bits [8:7]
+        [[maybe_unused]] const bool L = (hw1 >> 4) & 1;  // bit 4 (load vs store for dual)
 
         if ((hw1 & 0x0040) == 0) {
             // LDM.W / STM.W / LDMDB / STMDB (bit 6 = 0 means multiple)
@@ -4067,9 +4067,9 @@ void ARM_FastInterp::DecodeThumb32(u32 inst, u32 pc, DecodedInst& out) {
     // ---- 11101 0xxxxxx with bit 8 set: Table Branch (TBB/TBH) ----
     if ((hw1 & 0xFFF0) == 0xE8D0) {
         // TBB/TBH: 1110 1000 1101 Rn Rt 0000 000H Rm
-        const u8 Rn = hw1 & 0xF;
-        const u8 Rm = hw2 & 0xF;
-        const bool H = (hw2 >> 4) & 1;
+        [[maybe_unused]] const u8 Rn = hw1 & 0xF;
+        [[maybe_unused]] const u8 Rm = hw2 & 0xF;
+        [[maybe_unused]] const bool H = (hw2 >> 4) & 1;
         // Table branch: PC = PC + [Rn + Rm * (H ? 2 : 1)] * 2
         // This doesn't have a direct ARM equivalent - needs custom handler
         // For now, mark as invalid (uncommon instruction)
