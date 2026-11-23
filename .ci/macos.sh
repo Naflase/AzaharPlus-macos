@@ -4,6 +4,9 @@ if [ "$GITHUB_REF_TYPE" == "tag" ]; then
 	export EXTRA_CMAKE_FLAGS=(-DENABLE_QT_UPDATE_CHECKER=ON)
 fi
 
+# FFmpeg 7.x is required; Homebrew's default ffmpeg formula is newer.
+export PKG_CONFIG_PATH="$(brew --prefix ffmpeg@7)/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+
 mkdir build
 cd build
 cmake .. -GNinja \
@@ -18,6 +21,7 @@ cmake .. -GNinja \
 ninja
 ninja bundle
 mv ./bundle/azahar.app ./bundle/Azahar.app # TODO: Can this be done in CMake?
+../.ci/macos-fix-bundle.sh ./bundle/Azahar.app
 
 ccache -s -v
 
