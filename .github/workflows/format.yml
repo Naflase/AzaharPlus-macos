@@ -2,7 +2,7 @@ name: citra-format
 
 on:
   push:
-    branches: [ "*" ]
+    branches: [ "*", "!gh-pages" ]
   pull_request:
     branches: [ master ]
 

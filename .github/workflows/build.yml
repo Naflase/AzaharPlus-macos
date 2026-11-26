@@ -2,7 +2,7 @@ name: citra-build
 
 on:
   push:
-    branches: [ "*" ]
+    branches: [ "*", "!gh-pages" ]
     tags: [ "*", "!macos-*" ]
   pull_request:
     branches: [ master ]
