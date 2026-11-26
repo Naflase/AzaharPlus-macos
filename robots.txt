@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://naflase.github.io/AzaharPlus-macos/sitemap.xml

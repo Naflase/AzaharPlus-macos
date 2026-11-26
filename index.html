@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AzaharPlus for macOS – 3DS Emulator for Apple Silicon Macs</title>
+<meta name="description" content="Unofficial macOS builds of the AzaharPlus 3DS emulator for Apple Silicon Macs (M1, M2, M3, M4). Native arm64, Vulkan via MoltenVK, public lobby ready.">
+<link rel="canonical" href="https://naflase.github.io/AzaharPlus-macos/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1d2433">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AzaharPlus for macOS (unofficial)">
+<meta property="og:title" content="AzaharPlus for macOS – 3DS Emulator for Apple Silicon Macs">
+<meta property="og:description" content="Unofficial macOS builds of the AzaharPlus 3DS emulator for Apple Silicon Macs (M1, M2, M3, M4). Native arm64, Vulkan via MoltenVK, public lobby ready.">
+<meta property="og:url" content="https://naflase.github.io/AzaharPlus-macos/">
+<meta property="og:image" content="https://naflase.github.io/AzaharPlus-macos/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AzaharPlus for macOS: 3DS emulator builds for Apple Silicon Macs">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AzaharPlus for macOS – 3DS Emulator for Apple Silicon Macs">
+<meta name="twitter:description" content="Unofficial macOS builds of the AzaharPlus 3DS emulator for Apple Silicon Macs (M1, M2, M3, M4). Native arm64, Vulkan via MoltenVK, public lobby ready.">
+<meta name="twitter:image" content="https://naflase.github.io/AzaharPlus-macos/og-image.png">
+<meta name="twitter:image:alt" content="AzaharPlus for macOS: 3DS emulator builds for Apple Silicon Macs">
+<style>
+:root{--bg:#fff;--fg:#1b2130;--muted:#566075;--card:#f3f5fa;--line:#d9deea;--accent:#b85c00;--btn:#1d2433;--btnfg:#fff;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#10151f;--fg:#e8ecf5;--muted:#a3aec6;--card:#1a2232;--line:#2c3650;--accent:#ffb061;--btn:#ff9f43;--btnfg:#10151f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+a{color:var(--accent)}
+a:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--bg);padding:8px;z-index:9}
+header.top{padding:48px 0 24px}
+header.top .tag{color:var(--muted);margin:0 0 8px;font-size:.95rem}
+h1{font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.15;margin:0 0 16px}
+h2{font-size:1.5rem;margin:40px 0 12px;line-height:1.25}
+h3{font-size:1.1rem;margin:20px 0 4px}
+.lead{font-size:1.15rem;color:var(--muted);margin:0 0 24px}
+.btn{display:inline-block;background:var(--btn);color:var(--btnfg);text-decoration:none;font-weight:700;padding:12px 22px;border-radius:10px;margin:0 8px 8px 0}
+.btn.alt{background:transparent;color:var(--fg);border:2px solid var(--line)}
+ul.features{padding-left:20px}
+ul.features li{margin:6px 0}
+pre{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:.92rem}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em}
+.note{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;color:var(--muted);font-size:.95rem}
+details{border-top:1px solid var(--line);padding:10px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600}
+details p{margin:8px 0 4px}
+footer{margin:48px 0 32px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:16px}
+
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AzaharPlus for macOS (unofficial build)",
+  "alternateName": "AzaharPlus macOS",
+  "description": "Unofficial macOS (Apple Silicon) builds of AzaharPlus, a fork of the Azahar Nintendo 3DS emulator with extra features and a public multiplayer lobby ready out of the box.",
+  "url": "https://naflase.github.io/AzaharPlus-macos/",
+  "image": "https://naflase.github.io/AzaharPlus-macos/og-image.png",
+  "applicationCategory": "GameApplication",
+  "applicationSubCategory": "Emulator",
+  "operatingSystem": "macOS 27.2 or later (Apple Silicon)",
+  "softwareVersion": "2126.2-A",
+  "downloadUrl": "https://github.com/Naflase/AzaharPlus-macos/releases/download/macos-2126.2-A/AzaharPlus-macos-arm64-macos-2126.2-A.zip",
+  "installUrl": "https://github.com/Naflase/AzaharPlus-macos/releases/tag/macos-2126.2-A",
+  "license": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+  "isAccessibleForFree": true,
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock"},
+  "isBasedOn": "https://github.com/AzaharPlus/AzaharPlus",
+  "codeRepository": "https://github.com/Naflase/AzaharPlus-macos",
+  "sameAs": ["https://github.com/Naflase/AzaharPlus-macos"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Is this the official AzaharPlus or Azahar?", "acceptedAnswer": {"@type": "Answer", "text": "No. This is an unofficial macOS fork of AzaharPlus, which is itself a fork of the Azahar 3DS emulator. It is not affiliated with Azahar, AzaharPlus or Nintendo. The official projects are at https://github.com/AzaharPlus/AzaharPlus and https://azahar-emu.org."}},
+    {"@type": "Question", "name": "Which Macs does AzaharPlus for macOS support?", "acceptedAnswer": {"@type": "Answer", "text": "The builds are native arm64 binaries for Apple Silicon Macs (M1, M2, M3, M4 and later). Intel Macs are not supported. The minimum macOS version is given in each release notes; the current build needs macOS 27.2 or later because the bundled FFmpeg libraries were built for that version."}},
+    {"@type": "Question", "name": "Why does macOS say the app cannot be opened?", "acceptedAnswer": {"@type": "Answer", "text": "The app is ad hoc signed but not notarized by Apple. Move AzaharPlus.app to /Applications, run xattr -dr com.apple.quarantine /Applications/AzaharPlus.app in Terminal, then right-click the app and choose Open the first time you launch it."}},
+    {"@type": "Question", "name": "Does it come with games or console system files?", "acceptedAnswer": {"@type": "Answer", "text": "No. You need to provide your own legally dumped games. AzaharPlus can also download system files from official servers, so a real 3DS is not required for that step."}},
+    {"@type": "Question", "name": "How do I play online with other people?", "acceptedAnswer": {"@type": "Answer", "text": "Public multiplayer works out of the box. The default lobby server is preconfigured and a random network token is generated on first launch, so you can browse public rooms and host your own without extra setup. AzaharPlus also has improved multiplayer compatibility with other Citra forks."}},
+    {"@type": "Question", "name": "Is it free, and can I build it myself?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It is free and open source software licensed under the GPL. You can build it from source on macOS with Homebrew dependencies and the .ci/macos.sh script from the GitHub repository."}}
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap">
+<p class="tag">Unofficial macOS fork of <a href="https://github.com/AzaharPlus/AzaharPlus">AzaharPlus</a></p>
+<h1>AzaharPlus for macOS: a 3DS emulator for Apple Silicon Macs</h1>
+<p class="lead">Native arm64 builds of the AzaharPlus 3DS emulator for Macs with an M1, M2, M3 or M4 chip, with the public multiplayer lobby ready out of the box.</p>
+<a class="btn" href="https://github.com/Naflase/AzaharPlus-macos/releases/tag/macos-2126.2-A">Download for macOS (v2126.2-A)</a>
+<a class="btn alt" href="https://github.com/Naflase/AzaharPlus-macos">View source on GitHub</a>
+</div></header>
+<main id="main"><div class="wrap">
+
+<section aria-labelledby="about">
+<h2 id="about">What is AzaharPlus for macOS?</h2>
+<p><a href="https://github.com/AzaharPlus/AzaharPlus">AzaharPlus</a> is a fork of <a href="https://azahar-emu.org">Azahar</a>, an open source Nintendo 3DS emulator. This project is an <strong>unofficial macOS fork</strong> that builds and publishes AzaharPlus for Apple Silicon Macs, based on AzaharPlus 2126.2-A with macOS build fixes.</p>
+</section>
+
+<section aria-labelledby="features">
+<h2 id="features">Features</h2>
+<ul class="features">
+<li><strong>AzaharPlus extras:</strong> compatibility with game files that work on any Citra fork, built-in cheats, Amiibo generation, ZipPass (StreetPass data exchange through zip files) and the ability to download system files from official servers.</li>
+<li><strong>Public lobby ready:</strong> the default lobby server is preconfigured and a random network token is generated on first launch, so you can join and host public rooms without setup.</li>
+<li><strong>Native Apple Silicon:</strong> arm64 build for M1, M2, M3 and M4 Macs, no Rosetta needed.</li>
+<li><strong>Vulkan through MoltenVK:</strong> the Vulkan renderer runs on top of Metal.</li>
+<li><strong>Free and open source:</strong> GPL licensed, with the full source and build scripts on GitHub.</li>
+</ul>
+</section>
+
+<section aria-labelledby="download">
+<h2 id="download">Download AzaharPlus for Mac</h2>
+<p>The latest build is <strong>2126.2-A</strong> for Apple Silicon (arm64). It requires macOS 27.2 or later, as stated in the release notes.</p>
+<p>
+<a class="btn" href="https://github.com/Naflase/AzaharPlus-macos/releases/download/macos-2126.2-A/AzaharPlus-macos-arm64-macos-2126.2-A.zip">Download the .zip</a>
+<a class="btn alt" href="https://github.com/Naflase/AzaharPlus-macos/releases">All releases and checksums</a>
+</p>
+</section>
+
+<section aria-labelledby="install">
+<h2 id="install">How to install on macOS</h2>
+<ol>
+<li>Download <code>AzaharPlus-macos-arm64-macos-2126.2-A.zip</code> and unzip it.</li>
+<li>Move <code>AzaharPlus.app</code> to <code>/Applications</code>.</li>
+<li>The app is ad hoc signed and not notarized, so remove the quarantine flag in Terminal:
+<pre><code>xattr -dr com.apple.quarantine /Applications/AzaharPlus.app</code></pre></li>
+<li>On first launch, right-click the app and choose <strong>Open</strong>.</li>
+</ol>
+<p class="note">You need to provide your own legally dumped games. This project does not distribute games or links to them.</p>
+</section>
+
+<section aria-labelledby="multiplayer">
+<h2 id="multiplayer">Multiplayer and public rooms</h2>
+<p>Public multiplayer works out of the box. Open the multiplayer menu to browse public rooms on the preconfigured lobby server or host your own room. AzaharPlus also improves multiplayer compatibility with other Citra forks.</p>
+</section>
+
+<section aria-labelledby="link">
+<h2 id="link">3DS Link (using a real 3DS)</h2>
+<p>If you want to bring a real Nintendo 3DS into the setup, the third-party project <a href="https://github.com/gionko/3DS-Link">3DS-Link</a> by gionko may be of interest. It is independent from this project; check its own page for what it supports.</p>
+</section>
+
+<section aria-labelledby="build">
+<h2 id="build">Build from source</h2>
+<p>Homebrew's Qt must not be in your <code>PATH</code>, because the build downloads its own Qt.</p>
+<pre><code>brew install ccache ninja spirv-tools ffmpeg@7 sdl3
+git clone https://github.com/Naflase/AzaharPlus-macos.git
+cd AzaharPlus-macos
+TARGET=arm64 ./.ci/macos.sh</code></pre>
+<p>See the <a href="https://github.com/Naflase/AzaharPlus-macos#readme">README</a> for details.</p>
+</section>
+
+<section aria-labelledby="faq">
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>Is this the official AzaharPlus or Azahar?</summary><p>No. This is an unofficial macOS fork of AzaharPlus, which is itself a fork of Azahar. It is not affiliated with Azahar, AzaharPlus or Nintendo. The official projects are at <a href="https://github.com/AzaharPlus/AzaharPlus">github.com/AzaharPlus/AzaharPlus</a> and <a href="https://azahar-emu.org">azahar-emu.org</a>.</p></details>
+<details><summary>Which Macs does it support?</summary><p>Native arm64 builds for Apple Silicon Macs (M1, M2, M3, M4 and later). Intel Macs are not supported. The minimum macOS version is given in each release notes; the current build needs macOS 27.2 or later because the bundled FFmpeg libraries were built for that version.</p></details>
+<details><summary>Why does macOS say the app cannot be opened?</summary><p>The app is ad hoc signed but not notarized by Apple. Follow the install steps above: remove the quarantine flag with <code>xattr</code>, then right-click the app and choose Open on first launch.</p></details>
+<details><summary>Does it come with games or console system files?</summary><p>No. You need to provide your own legally dumped games. AzaharPlus can download system files from official servers, so a real 3DS is not required for that step.</p></details>
+<details><summary>How do I play online with other people?</summary><p>Public multiplayer works out of the box. The default lobby server is preconfigured and a random network token is generated on first launch, so you can browse public rooms and host your own without extra setup.</p></details>
+<details><summary>Is it free, and can I build it myself?</summary><p>Yes. It is free and open source (GPL). Build instructions are in the section above and in the repository.</p></details>
+</section>
+
+<section aria-labelledby="links">
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="https://github.com/Naflase/AzaharPlus-macos">This project on GitHub (unofficial macOS fork)</a></li>
+<li><a href="https://github.com/Naflase/AzaharPlus-macos/releases">Releases</a></li>
+<li><a href="https://github.com/Naflase/AzaharPlus-macos/issues">Report an issue</a></li>
+<li><a href="https://github.com/AzaharPlus/AzaharPlus">Official AzaharPlus repository</a></li>
+<li><a href="https://azahar-emu.org">Azahar emulator website</a></li>
+<li><a href="https://github.com/gionko/3DS-Link">3DS-Link (third party)</a></li>
+</ul>
+</section>
+</div></main>
+<footer><div class="wrap">
+<p>This is an unofficial community build of AzaharPlus for macOS. Nintendo 3DS is a trademark of Nintendo. This project is not affiliated with Nintendo, Azahar or AzaharPlus. The Azahar logo is the property of PabloMK7 and angyartanddraw and is not used here.</p>
+<p>Licensed under the <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GNU GPL v2</a>. Last updated 2026-11-26.</p>
+</div></footer>
+</body>
+</html>
