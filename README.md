@@ -1,3 +1,8 @@
+> **Unofficial macOS fork of [AzaharPlus](https://github.com/AzaharPlus/AzaharPlus)**, the 3DS emulator based on [Azahar](https://azahar-emu.org): native builds of this AzaharPlus 3DS emulator for macOS on Apple Silicon Macs (M1, M2, M3, M4), with the public multiplayer lobby ready out of the box.
+> Website: <https://naflase.github.io/AzaharPlus-macos/> | Download: [latest macOS release](https://github.com/Naflase/AzaharPlus-macos/releases/latest)
+>
+> Nintendo 3DS is a trademark of Nintendo. This project is not affiliated with Nintendo, Azahar or AzaharPlus.
+
 <b>AzaharPlus</b> is a fork of the Azahar 3DS emulator with extra features.
 
 Each version is the same as the corresponding version of Azahar exept for this:
